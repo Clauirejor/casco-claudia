@@ -245,12 +245,15 @@ const PA={
  'B-MPU6050':{n:'MPU6050',f:'Comprado',c:'#00838f',g:'Electrónica',t:'Se compra',w:'En la cuna B.',p:'Con silicona caliente.',x:'Orientación del brazo y contador de pasos.'},
  'B-BME280':{n:'BME280',f:'Comprado',c:'#ad1457',g:'Electrónica',t:'Se compra',w:'En la cuna B.',p:'Con silicona caliente.',x:'Temperatura y humedad dentro del brazo, y altitud.'},
  'R-HOMBRO':{n:'Hombro',f:'hombro_superior_1.stl',g:'Resto del brazo (se imprime tal cual)',w:'Carpeta 2 del paquete.',p:'—',x:'Sin cambios.'},
- 'R-BICEPS':{n:'Bíceps',f:'biceps_1.stl',g:'Resto del brazo (se imprime tal cual)',w:'Carpeta 2.',p:'—',x:'Por dentro, en la cara de fuera, van la batería y su cargador (las mismas cunas C-BAT y C-CARGA del casco).'},
+ 'R-BICEPS':{n:'Bíceps',f:'biceps_1.stl',g:'Resto del brazo (se imprime tal cual)',w:'Carpeta 2.',p:'—',x:'Sin cambios. La batería ya no va aquí: va en el guantelete, así el brazo funciona solo.'},
  'R-CODO':{n:'Codo',f:'codo_1.stl',g:'Resto del brazo (se imprime tal cual)',w:'Carpeta 2.',p:'—',x:'Deja los cables con una curva floja al pasar por aquí.'},
- 'R-GUANTE':{n:'Guantelete',f:'guantelete_1.stl',g:'Resto del brazo (se imprime tal cual)',w:'Carpeta 2.',p:'—',x:'Sin cambios.'},
+ 'R-GUANTE':{n:'Guantelete',f:'guantelete_1.stl',g:'Resto del brazo (se imprime tal cual)',w:'Carpeta 2.',p:'—',x:'Por dentro lleva la CUNA-C con la batería. Va siempre junto al antebrazo: los dos forman el brazo independiente.'},
+ 'R-CUNAC':{n:'Cuna C (batería y cargador)',f:'CUNA-C.stl',g:'Batería (dentro del guantelete)',w:'Por dentro del guantelete, en la cara de arriba (el dorso de la muñeca), con el USB-C hacia la mano.',p:'Epoxi. La espalda es curva y ya tiene la forma de la pared.',x:'Lleva la batería 603450 y el cargador IP5306. Por dentro del guantelete hay sitio de sobra: queda hueco para que pase la mano.'},
+ 'R-BATERIA':{n:'Batería 603450 + cargador IP5306',f:'Comprados',g:'Batería (dentro del guantelete)',w:'En la CUNA-C.',p:'Velcro o cinta de doble cara.',x:'1000 mAh: unas 4–5 h de uso. Se carga por el USB-C del cargador. 3 cables (5V, GND y batería) suben al antebrazo con un conector JST.'},
+ 'R-INTERRUPTOR':{n:'Interruptor de palanca',f:'Comprado (6 mm, de panel)',g:'Batería (dentro del guantelete)',w:'En un agujero de 6 mm en la parte de abajo del guantelete, cerca del borde de la mano.',p:'Con su tuerca.',x:'Corta la batería del todo: para guardarlo en la mochila.'},
  'R-MANO':{n:'Mano, dorso y aro del repulsor',f:'mano_1 · mano_dorso_1 · repulsor_aro_1',g:'Resto del brazo (se imprime tal cual)',w:'Carpeta 2.',p:'—',x:'Si pones el escáner (MLX90614), haz un agujero de 10 mm en la palma, al lado del aro.'}
 };
-const AORDER=['ANTE','PANEL','BT-D','BT-I','BD-D','BD-I','HORN','SERVO','TRAY','DISP','BEZEL','CRADLE-A','CRADLE-B','B-ESP32-C3','B-INA219','B-MPU6050','B-BME280','R-HOMBRO','R-BICEPS','R-CODO','R-GUANTE','R-MANO'];
+const AORDER=['ANTE','PANEL','BT-D','BT-I','BD-D','BD-I','HORN','SERVO','TRAY','DISP','BEZEL','CRADLE-A','CRADLE-B','B-ESP32-C3','B-INA219','B-MPU6050','B-BME280','R-CUNAC','R-BATERIA','R-INTERRUPTOR','R-HOMBRO','R-BICEPS','R-CODO','R-GUANTE','R-MANO'];
 const aMesh={}, aHold={}, aBase={};
 const panelG=new THREE.Group(); armIn.add(panelG);
 const pivR=new THREE.Group(); pivR.position.set(0,AI.BR[0],AI.BR[1]); armIn.add(pivR);
@@ -342,7 +345,7 @@ document.getElementById('bLado').onclick=()=>armView('side');
 document.getElementById('bTres').onclick=()=>armView('tq');
 const exB=document.getElementById('explodeB'); exB.onclick=()=>{aExpl=!aExpl; exB.setAttribute('aria-pressed',aExpl); armLayout();};
 const haB=document.getElementById('hideAnte'); haB.onclick=()=>{aHideAnte=!aHideAnte; haB.setAttribute('aria-pressed',aHideAnte); armLayout();};
-const INTRO={casco:document.getElementById('intro').textContent,brazo:'Pulsa “Ver cómo funciona”: la compuerta del antebrazo sube sobre 4 bielas y se tumba hacia el codo, se enciende la pantalla de sistemas, pasa a modo combate y se vuelve a cerrar. Toca una pieza para ver dónde va.'};
+const INTRO={casco:document.getElementById('intro').textContent,brazo:'Pulsa “Ver cómo funciona”: la compuerta del antebrazo sube sobre 4 bielas, se enciende la pantalla de sistemas, pasa a modo combate y se vuelve a cerrar. Toca una pieza para ver dónde va.'};
 function setMode(m){ if(m===mode) return; mode=m; stopAnim(); aStop();
   helmet.visible=m==='casco'; arm.visible=m==='brazo';
   document.getElementById('hudC').hidden=m!=='casco'; document.getElementById('hudB').hidden=m!=='brazo';
